@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content padding class="home">
+  <ion-refresher (ionRefresh)="forceReload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div style="color: red">{{status}}</div>
   <ion-grid *ngIf="weather">
     <ion-row>
@@ -19,26 +22,30 @@
       </div>
     </ion-row>
     <ion-row>
-      <h1 class="temp">{{weather.temp_c}}&deg;</h1>
+      <h1 class="temp">{{ measureSystemId == 1 ? weather.temp_c : weather.temp_f}}&deg;</h1>
     </ion-row>
     <ion-row>
       <ion-col width-100>
         <ion-list>
           <ion-item>
-            <strong>Temp: </strong> {{weather.temperature_string}}
-          </ion-item>
-          <ion-item>
-            <strong>Real Feel: </strong> {{weather.feelslike_c}} &deg;
+            <strong>Real Feel: </strong> {{measureSystemId == 1 ? weather.feelslike_c : weather.feelslike_f}} &deg;
           </ion-item>
           <ion-item>
             <strong>Relative Humidity: </strong> {{weather.relative_humidity}}
           </ion-item>
           <ion-item>
-            <strong>Visibility: </strong> {{weather.visibility_km}} km
+            <strong>Wind: </strong> {{weather.wind_string}} {{measureSystemId == 1 ? (weather.wind_kph + ' kph') : (weather.wind_mph + ' mph')}}
           </ion-item>
           <ion-item>
-            <strong>UV Index: </strong> {{weather.UV < 3 ? "Low" : (weather.UV < 6 ? "Moderate" : (weather.UV < 8 ? "High" : (weather.UV < 11 ?  "Very High" : "Extreme" ) ))}}
+              <strong>Wind Direction: </strong> {{weather.wind_dir}} 
+            </ion-item>
+          <ion-item>
+            <strong>Visibility: </strong> {{measureSystemId == 1 ? (weather.visibility_km + ' km'): weather.visibility_mi + ' mi' }}
           </ion-item>
+          <ion-item>
+            <strong>UV Index: </strong> {{weather.UV
+            < 3 ? "Low" : (weather.UV < 6 ? "Moderate" : (weather.UV < 8 ? "High" : (weather.UV < 11 ? "Very High" : "Extreme" ) ))}}
+              </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>

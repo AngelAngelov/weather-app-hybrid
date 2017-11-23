@@ -13,24 +13,64 @@ export class SettingsPage {
   city_name: string;
   items = [];
   error: string;
+  settings = {
+    user: {
+      systemId: 0, 
+      languageId: 0
+    },
+    options: {
+      measuringSystem : [
+        {
+          id: 1,
+          name: 'Metric' 
+        },
+        {
+          id: 2,
+          name: 'Imperial'
+        }
+      ],
+      languages: [
+        {
+          id: '1',
+          name: 'English',
+          abbr: 'EN'
+        },
+        {
+          id: '2',
+          name: 'Български',
+          abbr: 'BG'
+        }
+      ]
+    }
+  }
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private storage: Storage,
     private provider: WeatherProvider) {
-    this.storage.get('location').then(val => {
-      if (val != null) {
-        let location = JSON.parse(val);
-        this.city_name = location.city_name;
-      } else {
-        this.city_name = 'Sofia, Bulgaria';
-      }
-    })
+      this.storage.get('user-settings').then(val => {
+        if (val != null) {
+          let settings = JSON.parse(val);
+          this.settings.user = settings;
+        } else {
+          this.settings.user = {
+            languageId: 1,
+            systemId: 1
+          }
+        }
+      })
+      this.storage.get('location').then(val => {
+        if (val != null) {
+          let location = JSON.parse(val);
+          this.city_name = location.city_name;
+        } else {
+          this.city_name = 'Sofia, Bulgaria';
+        }
+      })
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
   }
 
   getItems() {
