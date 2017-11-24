@@ -24,7 +24,7 @@ export class HomePage {
   ionViewWillEnter() {
     this.storage.get('user-settings').then(settings => {
       if (settings) {
-        this.measureSystemId = settings.user.systemId;
+        this.measureSystemId = JSON.parse(settings).systemId;
       } else {
         this.measureSystemId = 1
       }

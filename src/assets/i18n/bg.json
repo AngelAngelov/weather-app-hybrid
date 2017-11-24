@@ -1,0 +1,24 @@
+{
+    "common": {
+        "home":"Начало",
+        "about":"Относно",
+        "settings":"Настройки"
+    },
+    "home": {
+        "realFeel": "Усеща се",
+        "relativeHumidity": "Относителна влажност",
+        "wind": "Вятър",
+        "windDirection": "Посока на вятъра",
+        "visibility": "Видимост",
+        "uvIndex": "UV Индекс"
+    },
+    "about": {
+        "appName":"Име",
+        "version":"Версия",
+        "description":"Описание"
+    },
+    "settings": {
+        "language": "Език",
+        "measureSystem": "Мерна система"
+    }
+}

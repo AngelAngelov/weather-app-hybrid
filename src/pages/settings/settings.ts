@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { WeatherProvider } from '../../providers/weather/weather';
+import { ToastController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @IonicPage()
 @Component({
@@ -15,14 +17,14 @@ export class SettingsPage {
   error: string;
   settings = {
     user: {
-      systemId: 0, 
-      languageId: 0
+      systemId: 0,
+      languageId: ''
     },
     options: {
-      measuringSystem : [
+      measuringSystem: [
         {
           id: 1,
-          name: 'Metric' 
+          name: 'Metric'
         },
         {
           id: 2,
@@ -31,12 +33,12 @@ export class SettingsPage {
       ],
       languages: [
         {
-          id: '1',
+          id: 'en',
           name: 'English',
           abbr: 'EN'
         },
         {
-          id: '2',
+          id: 'bg',
           name: 'Български',
           abbr: 'BG'
         }
@@ -48,26 +50,27 @@ export class SettingsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private storage: Storage,
-    private provider: WeatherProvider) {
-      this.storage.get('user-settings').then(val => {
-        if (val != null) {
-          let settings = JSON.parse(val);
-          this.settings.user = settings;
-        } else {
-          this.settings.user = {
-            languageId: 1,
-            systemId: 1
-          }
+    private provider: WeatherProvider,
+    private translate: TranslateService) {
+    this.storage.get('user-settings').then(val => {
+      if (val != null) {
+        let settings = JSON.parse(val);
+        this.settings.user = settings;
+      } else {
+        this.settings.user = {
+          languageId: 'en',
+          systemId: 1
         }
-      })
-      this.storage.get('location').then(val => {
-        if (val != null) {
-          let location = JSON.parse(val);
-          this.city_name = location.city_name;
-        } else {
-          this.city_name = 'Sofia, Bulgaria';
-        }
-      })
+      }
+    })
+    this.storage.get('location').then(val => {
+      if (val != null) {
+        let location = JSON.parse(val);
+        this.city_name = location.city_name;
+      } else {
+        this.city_name = 'Sofia, Bulgaria';
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -88,7 +91,7 @@ export class SettingsPage {
     }
   }
 
-  itemClicked(item){
+  itemClicked(item) {
     this.city_name = item.name;
 
     let location = {
@@ -99,6 +102,14 @@ export class SettingsPage {
     this.storage.set('location', JSON.stringify(location)).then(() => {
       this.items = [];
       (this.navCtrl.parent as Tabs).select(0);
+    });
+  }
+
+
+  onSettingsChange() {
+    let settings = this.settings.user;
+    this.storage.set('user-settings', JSON.stringify(settings)).then(() => {
+      this.translate.use(this.settings.user.languageId);
     });
   }
 }

@@ -1,21 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Settings</ion-title>
+    <ion-title>{{'common.settings' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>Language</ion-label>
-      <ion-select [(ngModel)]="settings.user.languageId">
+      <ion-label>{{'settings.language' | translate}}</ion-label>
+      <ion-select [(ngModel)]="settings.user.languageId" (ionChange)="onSettingsChange()">
         <ion-option *ngFor="let language of settings.options.languages" [value]="language.id">
           {{language.name}}
         </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-        <ion-label>Measure system</ion-label>
-        <ion-select [(ngModel)]="settings.user.systemId">
+        <ion-label>{{'settings.measureSystem' | translate}}</ion-label>
+        <ion-select [(ngModel)]="settings.user.systemId" (ionChange)="onSettingsChange()" >
           <ion-option *ngFor="let system of settings.options.measuringSystem" [value]="system.id">
             {{system.name}}
           </ion-option>

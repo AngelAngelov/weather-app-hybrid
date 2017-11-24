@@ -1,0 +1,24 @@
+{
+    "common": {
+        "home":"Home",
+        "about":"About",
+        "settings":"Settings"
+    },
+    "home": {
+        "realFeel": "Real Feel",
+        "relativeHumidity": "Relative Humidity",
+        "wind": "Wind",
+        "windDirection": "Wind Direction",
+        "visibility": "Visibility",
+        "uvIndex": "UV Index"
+    },
+    "about": {
+        "appName":"App Name",
+        "version":"Version",
+        "description":"Description"
+    },
+    "settings": {
+        "language":"Language",
+        "measureSystem":"Measure System"
+    }
+}

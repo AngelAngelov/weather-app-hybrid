@@ -1,7 +1,6 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { ToastController } from 'ionic-angular';
 import { CacheService } from 'ionic-cache';
 
 @Injectable()
@@ -11,23 +10,14 @@ export class WeatherProvider {
   autocompleteUrl: string;
   ttl: number = 3600;
   weatherKey: string = 'weather-conditions'
-  constructor(public http: Http, private cache: CacheService, private toastCtrl: ToastController) {
+  constructor(public http: Http, private cache: CacheService) {
     this.url = `http://api.wunderground.com/api/${this.apiKey}/conditions/q/zmw:`;
     this.autocompleteUrl = 'http://autocomplete.wunderground.com/aq?query=';
   }
 
   getWaether(zmw: string, refresher: boolean) {
     var req = this.http.get(`${this.url}${zmw}.json`)
-      .map(res => {
-        let toast = this.toastCtrl.create({
-          message: "New data loaded from API",
-          duration: 2000,
-          cssClass: 'alert alert-danger'
-        });
-
-        toast.present();
-        return res.json()
-      });
+      .map(res => res.json());
 
     if (refresher) {
       let delayType = 'all';

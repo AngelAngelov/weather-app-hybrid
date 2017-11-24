@@ -1,6 +1,6 @@
 .home{
-    background: color($colors, primary);
-    color: color($colors, light);
+    background: color($colors, light);
+    color: color($colors, primary);
 }
 
 .toolbar-title{
@@ -33,7 +33,7 @@
     }
 }
 .location{ 
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .desc {
