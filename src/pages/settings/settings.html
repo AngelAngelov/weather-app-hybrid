@@ -6,6 +6,9 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
+      <h2>{{'common.settings' | translate}}</h2>
+    </ion-item>
+    <ion-item>
       <ion-label>{{'settings.language' | translate}}</ion-label>
       <ion-select [(ngModel)]="settings.user.languageId" (ionChange)="onSettingsChange()">
         <ion-option *ngFor="let language of settings.options.languages" [value]="language.id">
@@ -14,13 +17,28 @@
       </ion-select>
     </ion-item>
     <ion-item>
-        <ion-label>{{'settings.measureSystem' | translate}}</ion-label>
-        <ion-select [(ngModel)]="settings.user.systemId" (ionChange)="onSettingsChange()" >
-          <ion-option *ngFor="let system of settings.options.measuringSystem" [value]="system.id">
-            {{system.name}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
+      <ion-label>{{'settings.measureSystem' | translate}}</ion-label>
+      <ion-select [(ngModel)]="settings.user.systemId" (ionChange)="onSettingsChange()">
+        <ion-option *ngFor="let system of settings.options.measuringSystem" [value]="system.id">
+          {{system.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <h2>Cities</h2>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'settings.language' | translate}}</ion-label>
+      <ion-select [(ngModel)]="settings.user.languageId" (ionChange)="onSettingsChange()">
+        <ion-option *ngFor="let language of settings.options.languages" [value]="language.id">
+          {{language.name}}
+          <ion-icon name="remove-circle"></ion-icon>   
+        </ion-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
 
   <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="city_name"></ion-searchbar>
